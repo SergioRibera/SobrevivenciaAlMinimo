@@ -1,5 +1,5 @@
 using UnityEngine;
-usign UnityEngine.UI;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
 
@@ -12,6 +12,6 @@ public class UIManager : MonoBehaviour {
     }
 
     public void UpdateHealth(int healt) {
-        healthImage.fill = healt;
+        healthImage.fillAmount = healt;
     }
 }
