@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class CreatureBot : CreatureBase {
     CreatureData creatureData;
     IInput input;

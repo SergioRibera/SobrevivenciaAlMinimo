@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CreatureBase : Interactable, IDamageable {
 
-    [SerializableField] int maxHealthDefault;
+    [SerializeField] int maxHealthDefault;
     int health;
 
     void Start() {
@@ -14,7 +14,7 @@ public class CreatureBase : Interactable, IDamageable {
         }
     }
 
-    public int TakeHit (int damage) {
+    public virtual int TakeHit (int damage) {
         health = (health - damage) <= 0 ? 0 : health - damage;
         if (health == 0)
             Dead();
