@@ -9,14 +9,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        targetPlatform:
-          - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
-          - StandaloneWindows # Build a Windows standalone.
-          - StandaloneWindows64 # Build a Windows 64-bit standalone.
-          - StandaloneLinux64 # Build a Linux 64-bit standalone.
-          #- iOS # Build an iOS player.
-          #- Android # Build an Android .apk standalone app.
-          - WebGL # WebGL.
+        # iOS, Android
+        targetPlatform: [ StandaloneOSX, StandaloneWindows, StandaloneLinux64, WebGL ]
+        include:
+          - targetPlatform: StandaloneOSX
+            deployVar: osx
+          - targetPlatform: StandaloneWindows
+            deployVar: windows
+          - targetPlatform: StandaloneLinux64
+            deployVar: linux
     steps:
       - uses: actions/checkout@v2
         with:
@@ -32,7 +33,18 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
-      - uses: actions/upload-artifact@v2
-        with:
-          name: Build-${{ matrix.targetPlatform }}
-          path: build/${{ matrix.targetPlatform }}
+      # Upload To Itch.io
+      - uses: josephbmanley/butler-publish-itchio-action@master
+        if: ${{ matrix.targetPlatform != "WebGL" }}
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: ${{ matrix.deployVar }}
+          ITCH_GAME: sporent
+          ITCH_USER: sergioribera
+          PACKAGE: build/${{ matrix.targetPlatform }}
+      # Upload To Release
+      # Upload to Artifact
+      #- uses: actions/upload-artifact@v2
+      #  with:
+      #    name: Build-${{ matrix.targetPlatform }}
+      #    path: build/${{ matrix.targetPlatform }}
