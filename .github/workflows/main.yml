@@ -34,7 +34,7 @@ jobs:
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
       # Upload To Itch.io
-      - if: matrix.targetPlatform != "WebGL"
+      - if: ${{ matrix.targetPlatform }} != "WebGL"
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
