@@ -8,16 +8,22 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      env:
+        APP_NAME: ${{ secrets.APP_NAME }}
       matrix:
         # iOS, Android
         targetPlatform: [ StandaloneOSX, StandaloneWindows, StandaloneLinux64, WebGL ]
         include:
           - targetPlatform: StandaloneOSX
             deployVar: osx
+            asset_name: macos   # ${{ env.APP_NAME }}-macos
           - targetPlatform: StandaloneWindows
             deployVar: windows
+            asset_name: windows
           - targetPlatform: StandaloneLinux64
             deployVar: linux
+          - targetPlatform: WebGL
+            asset_name: webgl
     steps:
       - uses: actions/checkout@v2
         with:
@@ -34,7 +40,7 @@ jobs:
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
       # Upload To Itch.io
-      - if: ${{ matrix.targetPlatform }} != "WebGL"
+      - if: ${{ matrix.targetPlatform != 'WebGL' }}
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
@@ -42,7 +48,39 @@ jobs:
           ITCH_GAME: sporent
           ITCH_USER: sergioribera
           PACKAGE: build/${{ matrix.targetPlatform }}
+      # Read Realease to set Changes
+      - name: Read release.md and use it as a body of new release
+        id: read_release
+        shell: bash
+        run: |
+          r=$(cat docs/release.md)
+          r="${r//'%'/'%25'}"                       # Multiline escape sequences for %
+          r="${r//$'\n'/'%0A'}"                     # Multiline escape sequences for '\n'
+          r="${r//$'\r'/'%0D'}"                     # Multiline escape sequences for '\r'
+          echo "::set-output name=RELEASE_BODY::$r" # <--- Set environment variable
+
       # Upload To Release
+      - name: Upload Binaries to Release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/${{ matrix.targetPlatform }}
+          asset_name: ${{ env.APP_NAME }}-${{ matrix.asset_name }}
+          tag: ${{ github.ref }}
+          body: ${{ steps.read_release.outputs.RELEASE_BODY }}
+
+      # Upload to Steam
+      #- name: Upload Binaries to Steam Workshop
+      #  uses: arma-actions/workshop-upload@v1
+      #  with:
+      #    appId: '107410'    # default
+      #    itemId: '' # Id of item to update
+      #    contentPath: build/${{ matrix.targetPlatform }}
+      #    changelog: ${{ steps.read_release.outputs.RELEASE_BODY }}
+      #  env:
+      #    STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
+      #    STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
+
       # Upload to Artifact
       #- uses: actions/upload-artifact@v2
       #  with:
