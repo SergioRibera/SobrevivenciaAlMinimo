@@ -4,10 +4,9 @@ on:
   push:
     branches:
       - main
-    pull_request:
-      types: [ closed ]
-      branches:
-        - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   buildForAllSupportedPlatforms:
@@ -29,10 +28,10 @@ jobs:
             deployVar: linux
           - targetPlatform: WebGL
             asset_name: webgl
-      steps:
-        - uses: actions/checkout@v2
-          with:
-            fetch-depth: 0
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
           lfs: true
       - uses: actions/cache@v2
         with:
@@ -44,7 +43,7 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
-            # Upload To Itch.io
+      # Upload To Itch.io
       - if: ${{ matrix.targetPlatform != 'WebGL' }}
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
@@ -53,7 +52,7 @@ jobs:
           ITCH_GAME: sporent
           ITCH_USER: sergioribera
           PACKAGE: build/${{ matrix.targetPlatform }}
-            # Read Realease to set Changes
+      # Read Realease to set Changes
       - name: Read release.md and use it as a body of new release
         id: read_release
         shell: bash
@@ -64,7 +63,7 @@ jobs:
           r="${r//$'\r'/'%0D'}"                     # Multiline escape sequences for '\r'
           echo "::set-output name=RELEASE_BODY::$r" # <--- Set environment variable
 
-          # Upload To Release
+      # Upload To Release
       - name: Upload Binaries to Release
         uses: svenstaro/upload-release-action@v2
         with:
@@ -74,20 +73,20 @@ jobs:
           tag: ${{ github.ref }}
           body: ${{ steps.read_release.outputs.RELEASE_BODY }}
 
-            # Upload to Steam
-            #- name: Upload Binaries to Steam Workshop
-            #  uses: arma-actions/workshop-upload@v1
-            #  with:
-            #    appId: '107410'    # default
-            #    itemId: '' # Id of item to update
-            #    contentPath: build/${{ matrix.targetPlatform }}
-            #    changelog: ${{ steps.read_release.outputs.RELEASE_BODY }}
-            #  env:
-            #    STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
-            #    STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
+      # Upload to Steam
+      #- name: Upload Binaries to Steam Workshop
+      #  uses: arma-actions/workshop-upload@v1
+      #  with:
+      #    appId: '107410'    # default
+      #    itemId: '' # Id of item to update
+      #    contentPath: build/${{ matrix.targetPlatform }}
+      #    changelog: ${{ steps.read_release.outputs.RELEASE_BODY }}
+      #  env:
+      #    STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
+      #    STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
 
-            # Upload to Artifact
-            #- uses: actions/upload-artifact@v2
-            #  with:
-            #    name: Build-${{ matrix.targetPlatform }}
-            #    path: build/${{ matrix.targetPlatform }}
+      # Upload to Artifact
+      #- uses: actions/upload-artifact@v2
+      #  with:
+      #    name: Build-${{ matrix.targetPlatform }}
+      #    path: build/${{ matrix.targetPlatform }}
