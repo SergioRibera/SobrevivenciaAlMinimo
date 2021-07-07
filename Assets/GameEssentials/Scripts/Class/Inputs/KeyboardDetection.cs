@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class KeyboardDetection : IInput {
-    public void InputMoveCreature(Transform creature) {
+public class KeyboardDetection : IInput
+{
+    public void Init(Transform cam)
+    {
         throw new System.NotImplementedException();
     }
 
-    public void InputMoveMouse(Transform cam) {
+    public void Stop()
+    {
         throw new System.NotImplementedException();
     }
 }
