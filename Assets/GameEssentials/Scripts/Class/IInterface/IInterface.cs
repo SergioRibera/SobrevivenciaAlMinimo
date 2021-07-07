@@ -18,5 +18,5 @@ public interface IDamageable {
 
 public interface IInput {
     void Init(Transform cam);
-    void Stop(Transform creature);
+    void Stop();
 }

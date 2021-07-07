@@ -7,7 +7,7 @@ public class KeyboardDetection : IInput
         throw new System.NotImplementedException();
     }
 
-    public void Stop(Transform creature)
+    public void Stop()
     {
         throw new System.NotImplementedException();
     }
