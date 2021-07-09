@@ -36,6 +36,12 @@ public class CameraController : MonoBehaviour {
         GetCharacterPositionToMask();
     }
 
+    public void Init(float visionRadiusDefault) {
+        CameraController.Main.ChangeVision(visionRadiusDefault);
+        CameraController.Main.CanAnimateVision(true);
+        radius = visionRadiusDefault;
+    }
+
     void GetCharacterPositionToMask() {
         Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position);
         float characterScreenWidth = 0,
@@ -66,6 +72,7 @@ public class CameraController : MonoBehaviour {
     }
 
     public void ChangeVision(float radiusVision) => objetiveRadius = radiusVision;
+        //mask.material.SetFloat("Radius", radiusVision);
     // TODO: On show game after show pause/part/adn menu
     public void CanAnimateVision(bool can) => canAnimateVision = can;
 
@@ -81,7 +88,7 @@ public class CameraController : MonoBehaviour {
         if (radius != 1)
             GetCharacterPositionToMask();
         if (!canAnimateVision) return;
-        if (radius == objetiveRadius)
+        if (radius.Equals(objetiveRadius))
             canAnimateVision = false;
         else if (radius < objetiveRadius)
             radius += .01f;
