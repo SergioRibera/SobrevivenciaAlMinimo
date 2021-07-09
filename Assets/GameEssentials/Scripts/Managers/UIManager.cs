@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
 
+    [Header("Interface")]
+    public GameObject textAnyKey;
+    [Header("Player")]
     public Image healthImage;
 
     public static UIManager Main = null;
@@ -19,4 +22,10 @@ public class UIManager : MonoBehaviour {
     public void ToglePauseMenu (bool enable) {
         throw new NotImplementedException();
     }
+
+    public void InitGame() {
+        ToggleTextAnyKey();
+        // TODO: Enable Player Interface
+    }
+    public void ToggleTextAnyKey() => textAnyKey.SetActive(!textAnyKey.activeSelf);
 }

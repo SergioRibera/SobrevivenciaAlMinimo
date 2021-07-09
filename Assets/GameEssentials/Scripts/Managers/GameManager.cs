@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour {
     void InitGame() {
         CreatureManager.Main.Init();
         CreaturePlayable.Main.Init();
-        // TODO: Disable text UI
+        UIManager.Main.InitGame();
         print("Game Init");
     }
 
