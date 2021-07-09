@@ -30,6 +30,9 @@ public class CameraController : MonoBehaviour {
 
     void Start() {
         target = CreaturePlayable.Main.transform;
+        Material tmpMat = new Material(Shader.Find("Shader Graphs/DarkMask"));
+        tmpMat.CopyPropertiesFromMaterial(mask.material);
+        mask.material = tmpMat;
         GetCharacterPositionToMask();
     }
 
@@ -65,7 +68,7 @@ public class CameraController : MonoBehaviour {
     public void ChangeVision(float radiusVision) => objetiveRadius = radiusVision;
     // TODO: On show game after show pause/part/adn menu
     public void CanAnimateVision(bool can) => canAnimateVision = can;
-    
+
     void LateUpdate() {
         if (!follow) return;
         // Siguiendo al jugador
