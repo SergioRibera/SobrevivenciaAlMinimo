@@ -2,16 +2,13 @@ using UnityEngine;
 
 public class CreatureBase : Interactable, IDamageable {
 
-    [SerializeField] int maxHealthDefault;
-    int health;
+    [SerializeField] protected int maxHealthDefault;
+    [SerializeField] protected float visionRadiusDefault = .16f;
+    protected int health;
 
-    void Start() {
-        DataManager.Init();
-        if (DataManager.DataLoaded) {
-            health = DataManager.Health;
-        } else {
-            health = maxHealthDefault;
-        }
+    public virtual void Init() {
+        CameraController.Main.ChangeVision(visionRadiusDefault);
+        CameraController.Main.CanAnimateVision(true);
     }
 
     public virtual int TakeHit (int damage) {

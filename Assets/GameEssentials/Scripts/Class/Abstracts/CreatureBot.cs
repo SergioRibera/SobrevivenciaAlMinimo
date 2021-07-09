@@ -3,11 +3,10 @@ public class CreatureBot : CreatureBase {
     IInput input;
 
     void Start() {
-        input = new BotInput();
+        input = new BotInput(transform);
+        input.Init();
     }
 
     void Update() {
-        input.InputMoveMouse(transform);
-        input.InputMoveCreature(transform);
     }
 }
