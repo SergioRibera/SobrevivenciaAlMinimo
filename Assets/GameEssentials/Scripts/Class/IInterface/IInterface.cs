@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public interface IComestible {
     bool Consume(TypeAlimentation typeAlimentation);
 }
@@ -17,6 +15,7 @@ public interface IDamageable {
 }
 
 public interface IInput {
-    void Init(Transform cam);
+    void Init();
+    void Update();
     void Stop();
 }
