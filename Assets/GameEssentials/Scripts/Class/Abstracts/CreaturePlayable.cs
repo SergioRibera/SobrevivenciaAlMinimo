@@ -17,18 +17,17 @@ public class CreaturePlayable : CreatureBase {
     }
 
     void Start() {
-        /* DataManager.Init(); */
-        /* if (DataManager.DataLoaded) { */
-        /*     health = DataManager.Health; */
-        /* } else { */
-        /*     health = maxHealthDefault; */
-        /* } */
+        DataManager.Init();
+        if (DataManager.DataLoaded) {
+            health = DataManager.Health;
+        } else {
+            health = maxHealthDefault;
+        }
         inputs = new IInput[] {
             new NormalDetection(GetComponent<Rigidbody2D>(), creatureSpeed),
             new KeyboardDetection(transform)
         };
-        /* inputSelected = inputs[DataManager.IndexInputSelected]; */
-        inputSelected = inputs[0];
+        inputSelected = inputs[DataManager.IndexInputSelected];
     }
 
     public override void Init() {

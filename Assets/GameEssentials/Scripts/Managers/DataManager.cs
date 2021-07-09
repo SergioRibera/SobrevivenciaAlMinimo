@@ -1,9 +1,9 @@
-using System;
 using UnityEngine;
+using EasyDataSave;
 
 public static class DataManager {
     static string DATA_PATH = Application.persistentDataPath;
-    static string KEY_ENCRYPT = "";
+    static string KEY_ENCRYPT = "FMORÑKÑBV&R/WVXRWNHYOERUII";
 
     static CreatureData data;
 
@@ -12,7 +12,6 @@ public static class DataManager {
         data = SaveDataManager.Exist(typeof(CreatureData), DATA_PATH) ?
             SaveDataManager.Load<CreatureData>(DATA_PATH, KEY_ENCRYPT, loadPrivates: true) : new CreatureData();
         DataLoaded = data != null;
-        throw new NotImplementedException();
     }
 
     public static int Health {
