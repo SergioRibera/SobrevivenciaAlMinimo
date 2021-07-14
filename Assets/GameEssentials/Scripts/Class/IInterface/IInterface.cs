@@ -4,6 +4,7 @@ public interface IComestible {
 
 public interface ICreaturePart {
     CreaturePart CreaturePart { set; get; }
+    void Init();
     void Action(CreatureBase me, CreatureBase other);
 }
 

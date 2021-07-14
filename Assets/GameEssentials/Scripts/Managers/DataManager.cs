@@ -31,5 +31,13 @@ public static class DataManager {
         }
     }
 
+    public static int Level {
+        get => data.level;
+        set {
+            data.level = value;
+            Save();
+        }
+    }
+
     static void Save() => data.Save<CreatureData>(DATA_PATH, KEY_ENCRYPT, savePrivates: true);
 }

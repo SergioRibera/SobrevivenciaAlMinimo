@@ -5,6 +5,7 @@ public class CreatureData {
     public TypeAlimentation typeAlimentation;
     public HashSet<Hability> habilities;
     public int maxEvolutionsParts; // IDK
+    public int level;
     public HashSet<CreaturePart> parts;
     public int inputSelect;
 }
