@@ -39,5 +39,12 @@ public static class DataManager {
         }
     }
 
+    public static CreaturePart GetCreaturePart(int key) => data.parts[key];
+    
+    public static void AddCreaturePart(CreaturePart c) {
+        data.parts.Add(c);
+        Save();
+    }
+
     static void Save() => data.Save<CreatureData>(DATA_PATH, KEY_ENCRYPT, savePrivates: true);
 }

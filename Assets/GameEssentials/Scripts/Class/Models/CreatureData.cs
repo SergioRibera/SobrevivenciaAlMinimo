@@ -3,9 +3,9 @@ using System.Collections.Generic;
 public class CreatureData {
     public int health;
     public TypeAlimentation typeAlimentation;
-    public HashSet<Hability> habilities;
+    public List<Hability> habilities;
     public int maxEvolutionsParts; // IDK
     public int level;
-    public HashSet<CreaturePart> parts;
+    public List<CreaturePart> parts;
     public int inputSelect;
 }

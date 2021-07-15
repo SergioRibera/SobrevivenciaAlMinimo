@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public interface IComestible {
     bool Consume(TypeAlimentation typeAlimentation);
 }
@@ -5,7 +7,10 @@ public interface IComestible {
 public interface ICreaturePart {
     CreaturePart CreaturePart { set; get; }
     void Init();
+    TypePart GetTypePart { get; }
+    void Action(CreatureBase me);
     void Action(CreatureBase me, CreatureBase other);
+    void Action(CreatureBase me, GameObject go);
 }
 
 public interface IDamageable {
