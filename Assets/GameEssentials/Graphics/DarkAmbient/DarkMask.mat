@@ -53,6 +53,7 @@ Material:
     - Center_Y: 0.4
     - Radius: 0.12
     - Vector1_9DAB2950: 0.02
+    - Vector1_ADB37C12: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1

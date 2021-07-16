@@ -42,7 +42,7 @@ public class NormalDetection : IInput {
     public void Update() {
         if (!input.asset.enabled) return;
         // if (mousePos == Vector2.zero) return;
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current.leftButton.isPressed)
             mousePos = _mousePosTemp;
         float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
         creature.MovePosition(Vector3.MoveTowards(creature.position, mousePos,
