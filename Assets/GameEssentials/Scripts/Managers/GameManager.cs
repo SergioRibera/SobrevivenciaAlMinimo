@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
         CreaturePlayable.Main.Init();
         UIManager.Main.InitGame();
         print("Game Init");
+        startedGame = true;
     }
 
 }

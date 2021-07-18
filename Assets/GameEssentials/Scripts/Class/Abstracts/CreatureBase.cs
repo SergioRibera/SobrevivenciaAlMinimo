@@ -3,7 +3,7 @@ using UnityEngine;
 public class CreatureBase : Interactable, IDamageable {
 
     [SerializeField] protected int maxHealthDefault;
-    [SerializeField] protected float visionRadiusDefault = .16f;
+    [SerializeField] [Range(0, 100)] protected int visionRadiusDefault = 16;
     protected int health;
 
     public virtual void Init() => CameraController.Main.Init(visionRadiusDefault);

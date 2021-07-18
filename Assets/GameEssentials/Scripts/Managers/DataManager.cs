@@ -46,5 +46,9 @@ public static class DataManager {
         Save();
     }
 
-    static void Save() => data.Save<CreatureData>(DATA_PATH, KEY_ENCRYPT, savePrivates: true);
+    static void Save() {
+#if !UNITY_EDITOR
+        data.Save<CreatureData>(DATA_PATH, KEY_ENCRYPT, savePrivates: true);
+#endif
+    }
 }

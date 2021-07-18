@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour {
     public GameObject textAnyKey;
     [Header("Player")]
     public Image healthImage;
+    [Header("Menus")]
+    public Animator animPlayerUI;
 
     public static UIManager Main = null;
     void Awake(){
@@ -26,6 +28,7 @@ public class UIManager : MonoBehaviour {
     public void InitGame() {
         ToggleTextAnyKey();
         // TODO: Enable Player Interface
+        /* animPlayerUI.SetTrigger("Entry"); */
     }
     public void ToggleTextAnyKey() => textAnyKey.SetActive(!textAnyKey.activeSelf);
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Eye : ICreaturePart {
     CreaturePart _creatureParts;
-    public float visionHability;
+    public int visionHability;
 
     public CreaturePart CreaturePart { get => _creatureParts; set => _creatureParts = value; }
 
