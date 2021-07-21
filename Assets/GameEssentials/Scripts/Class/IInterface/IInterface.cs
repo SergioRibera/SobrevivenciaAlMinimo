@@ -6,7 +6,11 @@ public interface IComestible {
 
 public interface ICreaturePart {
     CreaturePart CreaturePart { set; get; }
+    void Init();
+    TypePart GetTypePart { get; }
+    void Action(CreatureBase me);
     void Action(CreatureBase me, CreatureBase other);
+    void Action(CreatureBase me, GameObject go);
 }
 
 public interface IDamageable {
@@ -17,6 +21,7 @@ public interface IDamageable {
 }
 
 public interface IInput {
-    void Init(Transform cam);
+    void Init();
+    void Update();
     void Stop();
 }

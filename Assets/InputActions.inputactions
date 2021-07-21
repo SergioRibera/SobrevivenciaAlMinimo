@@ -1,0 +1,203 @@
+{
+    "name": "InputActions",
+    "maps": [
+        {
+            "name": "PlayerKeyboard",
+            "id": "6d021e5d-3e7f-456b-ad0f-916133c99acb",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "00de2498-6f1c-4cbb-ac71-70368491abc7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Mouse",
+                    "type": "PassThrough",
+                    "id": "4b2cbb65-7629-4ec8-8edb-b46b9f7aaa32",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "63fc7cab-7efd-42c2-b48f-46f289e2c226",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "AxisDeadzone",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "e7f6af66-3c94-4c9b-b65f-6c5aaf1cc51c",
+                    "path": "<Keyboard>/#(w)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "3d0da08f-dd83-4f5b-a4c6-bc65cf36af85",
+                    "path": "<Keyboard>/#(s)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "c33440ac-43a2-4f21-baf0-5acdd5136926",
+                    "path": "<Keyboard>/#(a)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "da028b16-954b-4ffa-aef4-0e1c5409c41b",
+                    "path": "<Keyboard>/#(d)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "c3dcceda-bdbc-4f2e-80c4-eb5b32c62487",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "4dd19a39-098b-4c26-b680-1cbef80a077a",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Mouse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "dc2f77b7-3854-4029-9048-8ca61243b38f",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Mouse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "e82d2f1e-525a-4c92-84ed-2a6911b4329d",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Mouse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "c4b39e45-df7e-4576-874b-4c671de79586",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controls",
+                    "action": "Mouse",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "PlayerNormal",
+            "id": "0782184e-d7e6-40c3-848a-71a6e1ad3495",
+            "actions": [
+                {
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "4a941aad-5169-4077-bc9d-07bca4c0219c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "01c7006c-b4d2-4d1f-ad54-411ca59ea55f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e05e9c26-ab7e-4c1f-b1fe-41236f66c3a8",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "110ffd42-cecb-43fa-b29e-e490b0974cd6",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Controls",
+            "bindingGroup": "Controls",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
