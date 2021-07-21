@@ -32,7 +32,7 @@ public static class DataManager {
 
     public static int Level {
         get => data.level;
-        //get => 1;
+        /* get => 1; */
         set {
             data.level = value;
             Save();

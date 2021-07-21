@@ -53,7 +53,7 @@ public class CreaturePlayable : CreatureBase {
     public void AddCreaturePart(ICreaturePart part) {
         parts.Add(part);
         goPart = new GameObject(part.GetTypePart.ToString() + part.CreaturePart.name);
-        goPart.transform.localRotation = Quaternion.identity;
+        goPart.transform.rotation = transform.rotation;
         goPart.transform.SetParent(transform);
         goPart.AddComponent<SpriteRenderer>().sprite = part.CreaturePart.img;
         goPart.transform.localPosition = part.CreaturePart.pos;
