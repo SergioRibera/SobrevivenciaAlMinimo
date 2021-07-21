@@ -23,8 +23,7 @@ public static class DataManager {
     }
 
     public static int IndexInputSelected {
-        /* get => data.inputSelect; */
-        get => 0;
+        get => data.inputSelect;
         set {
             data.inputSelect = value;
             Save();
@@ -33,8 +32,41 @@ public static class DataManager {
 
     public static int Level {
         get => data.level;
+        //get => 1;
         set {
             data.level = value;
+            Save();
+        }
+    }
+
+    public static TypeAlimentation TypeAlimentation {
+        get => data.typeAlimentation;
+        set {
+            data.typeAlimentation = value;
+            Save();
+        }
+    }
+
+    public static int MaxADN {
+        get => data.maxADN;
+        set {
+            data.maxADN = value;
+            Save();
+        }
+    }
+
+    public static int CurrentNutrition {
+        get => data.currentNutrition;
+        set {
+            data.currentNutrition = value;
+            Save();
+        }
+    }
+
+    public static int MaxNutrition {
+        get => data.maxNutrition;
+        set {
+            data.maxNutrition = value;
             Save();
         }
     }

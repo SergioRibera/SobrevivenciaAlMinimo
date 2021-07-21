@@ -8,7 +8,6 @@ public struct TypeHability {
 public struct Hability {
     public int ID;
     public string name;
-    public bool unlocked;
-    public HashSet<int> prevHabilitiesRequire;
-    public HashSet<TypeHability> types;
+    public List<int> prevHabilitiesRequire;
+    public List<TypeHability> types;
 }

@@ -39,7 +39,7 @@ public class CameraController : MonoBehaviour {
     public void Init(int visionRadiusDefault) {
         CameraController.Main.ChangeVision(visionRadiusDefault);
         CameraController.Main.CanAnimateVision(true);
-        radius = visionRadiusDefault;
+        objetiveRadius = visionRadiusDefault;
     }
 
     void GetCharacterPositionToMask() {

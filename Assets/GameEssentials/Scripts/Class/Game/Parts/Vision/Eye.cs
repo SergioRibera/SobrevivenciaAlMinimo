@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Eye : ICreaturePart {
     CreaturePart _creatureParts;
-    public int visionHability;
 
     public CreaturePart CreaturePart { get => _creatureParts; set => _creatureParts = value; }
 
@@ -11,7 +10,7 @@ public class Eye : ICreaturePart {
     public void Action(CreatureBase me, CreatureBase other) { }
 
     public void Init() {
-        CameraController.Main.ChangeVision(visionHability);
+        CameraController.Main.ChangeVision(CreaturePart.value);
         CameraController.Main.CanAnimateVision(true);
     }
 

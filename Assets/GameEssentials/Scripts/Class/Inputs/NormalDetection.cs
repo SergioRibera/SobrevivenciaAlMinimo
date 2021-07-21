@@ -41,13 +41,16 @@ public class NormalDetection : IInput {
 
     public void Update() {
         if (!input.asset.enabled) return;
-        // if (mousePos == Vector2.zero) return;
-        if (Mouse.current.leftButton.isPressed)
+        if (Mouse.current.leftButton.isPressed && !GameManager.Main.pausedGame)
             mousePos = _mousePosTemp;
-        float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+        var dir = new Vector2(
+            mousePos.x - creature.position.x,
+            mousePos.y - creature.position.y
+        );
+        creature.transform.up = dir;
         creature.MovePosition(Vector3.MoveTowards(creature.position, mousePos,
                 creatureSpeed * Time.deltaTime));
-        creature.SetRotation(Quaternion.Euler(new Vector3(0, 0, angle)));
-        /* Debug.Log("Update :0"); */
+        /* creature.MovePosition(Vector3.Lerp(creature.position, mousePos, */
+        /*         creatureSpeed * Time.deltaTime)); */
     }
 }

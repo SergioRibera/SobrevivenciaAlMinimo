@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5204c50c64599574a9a9e7347093b554
+guid: 7fd4cdb0e4573529b807581cc4ad5b74
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -39,17 +39,17 @@ ScriptedImporter:
   spriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: 
+      name: HUDLifeBarSprite
       originalName: 
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5004493, y: 0.5007653}
       alignment: 0
       border: {x: 0, y: 0, z: 0, w: 0}
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 0
-        height: 0
-      spriteID: fc84843278bc6d88d968aaf25a4ee7ba
+        width: 389
+        height: 196
+      spriteID: 58894e67a7d6e4a2ba99655f54ecdf5b
       internalID: 0
     PhysicsOutlines: []
