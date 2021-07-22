@@ -10,8 +10,9 @@ public class UIManager : MonoBehaviour {
     public GameObject textAnyKey;
     [Header("Player")]
     public Image healthImage;
-    public Image nutritionPoint;
+    public Image nutritionPoint, adnPoint;
     public AdvancedUIInteractable interactable;
+    public TextMeshProUGUI txtADN;
     [Header("Menus")]
     public Animator animPlayerHealth;
     public GameObject pauseMenu;
@@ -30,6 +31,14 @@ public class UIManager : MonoBehaviour {
 
     public void UpdateNutritionPoint (float point) => nutritionPoint.fillAmount = point;
     public void UpdateHealth (float healt) => healthImage.fillAmount = healt;
+    int valueAnimID = -1;
+    public void UpdateADNPoint () {
+        float value = 1.0f / (float) DataManager.MaxADN * (float) DataManager.ADN;
+        txtADN.text = $"{DataManager.ADN} / {DataManager.MaxADN}";
+        if (valueAnimID != -1)
+            LeanTween.cancel(valueAnimID);
+        valueAnimID = LeanTween.value(adnPoint.fillAmount, value, 1f).setOnUpdate((float v) => adnPoint.fillAmount = v).id;
+    }
 
     public void UpdateLevel() {
         UpdateNutritionPoint(0f);
@@ -46,15 +55,15 @@ public class UIManager : MonoBehaviour {
             goBtn = Instantiate(btnPrefab, pauseContainer);
             AdvancedUIInteractable btnInt = goBtn.GetComponent<AdvancedUIInteractable>();
             txtBtn = goBtn.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-            txtBtn.text = string.IsNullOrEmpty(p.CreaturePart.name) ? "Uknown" : p.CreaturePart.name;
+            txtBtn.text = string.IsNullOrEmpty(p.CreaturePart.name) ? "Uknown" : $"({p.CreaturePart.adnValue}) {p.CreaturePart.name}";
             btnInt.AddOnClickListener(() => {
-                bool contains = CreaturePlayable.Main.ContainsPart(p);
-                if (!contains)
-                    CreaturePlayable.Main.AddCreaturePart(p);
-                else
+                    bool contains = CreaturePlayable.Main.ContainsPart(p);
+                    if (!contains)
+                    contains = !CreaturePlayable.Main.AddCreaturePart(p);
+                    else
                     CreaturePlayable.Main.RemovePart(p);
-                btnInt.colors.NormalColor = !contains ? Color.cyan : Color.white;
-            });
+                    btnInt.colors.NormalColor = !contains ? Color.cyan : Color.white;
+                    });
         }
     }
     public void ToglePauseMenu (bool e, bool update = false) {

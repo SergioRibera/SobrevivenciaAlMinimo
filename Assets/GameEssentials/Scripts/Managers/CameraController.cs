@@ -33,6 +33,8 @@ public class CameraController : MonoBehaviour {
         Material tmpMat = new Material(Shader.Find("Shader Graphs/DarkMask"));
         tmpMat.CopyPropertiesFromMaterial(mask.material);
         mask.material = tmpMat;
+        if (DataManager.IsNewData)
+            mask.material.SetFloat("Radius", 0f);
         GetCharacterPositionToMask();
     }
 

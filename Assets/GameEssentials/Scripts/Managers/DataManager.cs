@@ -8,8 +8,10 @@ public static class DataManager {
     static CreatureData data;
 
     public static bool DataLoaded { private set; get; }
+    public static bool IsNewData { private set; get; }
     public static void Init() {
-        data = SaveDataManager.Exist(typeof(CreatureData), DATA_PATH) ?
+        IsNewData = !SaveDataManager.Exist(typeof(CreatureData), DATA_PATH);
+        data = !IsNewData ?
             SaveDataManager.Load<CreatureData>(DATA_PATH, KEY_ENCRYPT, loadPrivates: true) : new CreatureData();
         DataLoaded = data != null;
     }
@@ -47,6 +49,13 @@ public static class DataManager {
         }
     }
 
+    public static int ADN {
+        get => data.adn;
+        set {
+            data.adn = value;
+            Save();
+        }
+    }
     public static int MaxADN {
         get => data.maxADN;
         set {

@@ -7,13 +7,16 @@ public class CreatureData {
     public int level;
     public List<CreaturePart> parts;
     public int inputSelect,
-           maxADN, currentNutrition, maxNutrition;
+           adn, maxADN, currentNutrition, maxNutrition;
 
     public CreatureData() {
         health = 100;
         currentNutrition = 0;
         maxNutrition = 100;
-        maxADN = 5;
+        adn = 0;
+        // maxADN = 5;
+        maxADN = 4;
+        level = -1;
         habilities = new List<Hability>();
         parts = new List<CreaturePart>();
         inputSelect = 0;
