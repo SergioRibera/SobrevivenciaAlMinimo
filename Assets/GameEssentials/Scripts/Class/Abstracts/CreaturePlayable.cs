@@ -39,10 +39,10 @@ public class CreaturePlayable : CreatureBase {
         levelsActions = new List<Action>() {
             () => StartCoroutine(Level0()),
             Level1,
-            Level2,
-            Level3,
-            Level4,
-            Level5
+            () => DataManager.MaxADN = 8,
+            () => DataManager.MaxADN = 10,
+            () => DataManager.MaxADN = 12,
+            () => DataManager.MaxADN = 15
         };
         // TODO: Load Parts
         parts = new List<ICreaturePart>();
@@ -69,6 +69,7 @@ public class CreaturePlayable : CreatureBase {
         goPart.transform.localScale = part.CreaturePart.scale;
         if (part.CreaturePart.collisionSize != 0f) {
             var cc = goPart.AddComponent<CircleCollider2D>();
+            goPart.AddComponent<PartBehaviour>().Init(part, this);
             cc.radius = part.CreaturePart.collisionSize;
             cc.isTrigger = true;
         }
@@ -105,6 +106,7 @@ public class CreaturePlayable : CreatureBase {
             part.Init();
         NextLevel();
     }
+    int anim0ID;
     IEnumerator Level0() {
         int timeDuration = 30,
               time = 0;
@@ -112,33 +114,32 @@ public class CreaturePlayable : CreatureBase {
         while (time < timeDuration) {
             yield return new WaitForSeconds(1);
             float nextStep = 1.0f / timeDuration * time;
-            LeanTween.value(UIManager.Main.nutritionPoint.fillAmount, nextStep, 1f).setOnUpdate((float v) => {
+            anim0ID = LeanTween.value(UIManager.Main.nutritionPoint.fillAmount, nextStep, 1f).setOnUpdate((float v) => {
                 if (DataManager.Level != (DataManager.Level + 1))
                     UIManager.Main.UpdateNutritionPoint(v);
-            });
+            }).id;
             time++;
         }
+        LeanTween.cancel(anim0ID);
         NextLevel();
     }
     void Level1() {
-        CreatureManager.Main.UnlockPlayerLevel();
         UIManager.Main.EnableInteractable();
         print("Level 1");
     }
-    void Level2() {}
-    void Level3() {}
-    void Level4() {}
-    void Level5() {}
 
     void CalculateNextMaxNut() => DataManager.MaxNutrition = DataManager.Level * 10 + (Random.Range(2, 30));
-    void NextLevel() {
+    public void NextLevel() {
         // TODO: Add effect
         DataManager.Level++;
         CalculateNextMaxNut();
         levelsActions[DataManager.Level]();
         UIManager.Main.UpdateLevel();
-        if (DataManager.Level > 0)
+        if (DataManager.Level > 0) {
+            CreatureManager.Main.UnlockPlayerLevel();
+            UIManager.Main.UpdateADNPoint();
             UIManager.Main.ShowNotification("Haz desbloquado nuevas partes! Haz click en la burbuja para ver mas informacion", 5f, title: "Una nueva etapa!!!!");
+        }
     }
     void FixedUpdate() {
         if (isDead || GameManager.Main.pausedGame) return;
@@ -146,21 +147,11 @@ public class CreaturePlayable : CreatureBase {
     }
 
     public override int TakeHit(int damage) {
+        // TODO: Animate
+        // TODO: Add Repulsion
         int res = base.TakeHit(damage);
         DataManager.Health = health;
-        print(health);
-        print(maxHealthDefault);
         return res;
-    }
-
-    public override void TriggerEnter2D(string tag, GameObject go) {
-        if (isDead)
-            return;
-        foreach (var part in parts) {
-            if (tag == "Alimento" && part.GetTypePart == TypePart.Mouth)
-                part.Action(this, go);
-            // TODO: Fill all
-        }
     }
 
     [ContextMenu("Take Damage")]
