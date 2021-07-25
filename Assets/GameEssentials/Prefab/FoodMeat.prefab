@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2492936735771312548}
   - component: {fileID: 5262897842147564158}
   - component: {fileID: 5964516587433997445}
+  - component: {fileID: -1377390865333747012}
   m_Layer: 0
   m_Name: FoodMeat
   m_TagString: Untagged
@@ -118,3 +119,16 @@ PolygonCollider2D:
       - {x: 0.16336855, y: -0.45067826}
       - {x: 0.44469923, y: -0.0043000225}
       - {x: 0.42903614, y: 0.13940236}
+--- !u!114 &-1377390865333747012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279684447009254814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88eafeed15abde1ce9daca10d0dc947e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeAlimentation: 0
