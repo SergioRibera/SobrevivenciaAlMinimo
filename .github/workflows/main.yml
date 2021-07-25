@@ -15,8 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # iOS, Android
-        targetPlatform: [ StandaloneOSX, StandaloneWindows, StandaloneLinux64, WebGL ]
+        # WebGL, iOS, Android
+        targetPlatform: [ StandaloneOSX, StandaloneWindows, StandaloneLinux64 ]
         include:
           - targetPlatform: StandaloneOSX
             deployVar: osx
@@ -26,8 +26,8 @@ jobs:
             asset_name: windows
           - targetPlatform: StandaloneLinux64
             deployVar: linux
-          - targetPlatform: WebGL
-            asset_name: webgl
+          # - targetPlatform: WebGL
+          #  asset_name: webgl
     steps:
       - uses: actions/checkout@v2
         with:
@@ -43,6 +43,7 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
+          buildName: ${{ secrets.APP_NAME }}-${{ matrix.targetPlatform }}
       # Upload To Itch.io
       - if: ${{ matrix.targetPlatform != 'WebGL' }}
         uses: josephbmanley/butler-publish-itchio-action@master
@@ -62,13 +63,14 @@ jobs:
           r="${r//$'\n'/'%0A'}"                     # Multiline escape sequences for '\n'
           r="${r//$'\r'/'%0D'}"                     # Multiline escape sequences for '\r'
           echo "::set-output name=RELEASE_BODY::$r" # <--- Set environment variable
-
+      # Zip output
+      - run: zip -r "${{secrets.APP_NAME}}-${{matrix.asset_name}}.zip" "build/${{matrix.targetPlatform}}"
       # Upload To Release
       - name: Upload Binaries to Release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/${{ matrix.targetPlatform }}
+          file: ${{ secrets.APP_NAME }}-${{ matrix.asset_name }}.zip
           asset_name: ${{ secrets.APP_NAME }}-${{ matrix.asset_name }}
           tag: ${{ github.ref }}
           body: ${{ steps.read_release.outputs.RELEASE_BODY }}
