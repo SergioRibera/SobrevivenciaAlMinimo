@@ -5,8 +5,7 @@ using UnityEngine;
 public class CreatureManager : MonoBehaviour {
 
     [Header("Parts")]
-    [SerializeField] Sprite basicEye;
-    [SerializeField] Sprite basicMouth;
+    [SerializeField] List<Sprite> level1, level2, level3, level4, level5;
     
     public static CreatureManager Main = null;
 
@@ -42,19 +41,50 @@ public class CreatureManager : MonoBehaviour {
                 new Vector3(.003f, 0.093f, -1f),
                 Vector3.one * 5f,
                 0f,
-                basicEye,
-                "Basic Eye",
-                1, 2, value: 100
+                level1[0],
+                "Vista Gorda",
+                1, 2, TypeAlimentation.Any, value: 100
             )
         });
-        parts.Add(new SimpleMouth(){
+        parts.Add(new Eye(){
+            CreaturePart = new CreaturePart(
+                new Vector3(.003f, 0.093f, -1f),
+                Vector3.one * 5f,
+                0f,
+                level1[1],
+                "Punto de Vista",
+                1, 1, TypeAlimentation.Any, value: 60
+            )
+        });
+        parts.Add(new Mouth(){
             CreaturePart = new CreaturePart(
                 new Vector3(0f, .435f, -1f),
                 Vector3.one * 3f,
                 .07f,
-                basicMouth,
-                "Basic Mouth",
-                1, 3, value: 20
+                level1[2],
+                "Destroza Huesos",
+                1, 3, TypeAlimentation.Carnivore, value: 20
+            )
+        });
+        parts.Add(new Mouth(){
+            CreaturePart = new CreaturePart(
+                new Vector3(0f, .435f, -1f),
+                Vector3.one * 3f,
+                .07f,
+                level1[3],
+                "Pastadora",
+                1, 3, TypeAlimentation.Herbivore, value: 20
+            )
+        });
+        // Omnivoro
+        parts.Add(new Mouth(){
+            CreaturePart = new CreaturePart(
+                new Vector3(0f, .435f, -1f),
+                Vector3.one * 3f,
+                .07f,
+                level1[2],
+                "Aspira Nutrientes",
+                1, 3, TypeAlimentation.Omnivore, value: 20
             )
         });
     }

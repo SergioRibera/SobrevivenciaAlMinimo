@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using TMPro;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class UIManager : MonoBehaviour {
     public GameObject textAnyKey;
     [Header("Player")]
     public Image healthImage;
+    public Image typeAlImage;
     public Image nutritionPoint, adnPoint;
     public AdvancedUIInteractable interactable;
     public TextMeshProUGUI txtADN;
@@ -22,6 +24,7 @@ public class UIManager : MonoBehaviour {
     public TextMeshProUGUI notTitle, notMsg;
     [Header("Prefabs")]
     [SerializeField] GameObject btnPrefab;
+    [SerializeField] List<GameObject> iconTypeAlimentation;
 
     public static UIManager Main = null;
     void Awake(){
@@ -56,14 +59,27 @@ public class UIManager : MonoBehaviour {
             AdvancedUIInteractable btnInt = goBtn.GetComponent<AdvancedUIInteractable>();
             txtBtn = goBtn.GetComponentInChildren<TMPro.TextMeshProUGUI>();
             txtBtn.text = string.IsNullOrEmpty(p.CreaturePart.name) ? "Uknown" : $"({p.CreaturePart.adnValue}) {p.CreaturePart.name}";
+            btnInt.Interactive = p.CreaturePart.typeAlimentation == TypeAlimentation.Any || 
+                    p.CreaturePart.typeAlimentation == DataManager.TypeAlimentation ||
+                    DataManager.TypeAlimentation == TypeAlimentation.Any;
+            if (CreaturePlayable.Main.ContainsPart(p))
+                btnInt.colors.NormalColor = Color.cyan;
             btnInt.AddOnClickListener(() => {
-                    bool contains = CreaturePlayable.Main.ContainsPart(p);
-                    if (!contains)
+                bool contains = CreaturePlayable.Main.ContainsPart(p);
+                if (!contains)
+                    // TODO: logic if Contains
                     contains = !CreaturePlayable.Main.AddCreaturePart(p);
-                    else
+                else
                     CreaturePlayable.Main.RemovePart(p);
-                    btnInt.colors.NormalColor = !contains ? Color.cyan : Color.white;
-                    });
+                foreach (var icon in iconTypeAlimentation)
+                    icon.SetActive(false);
+                if (!contains)
+                    if (p.CreaturePart.typeAlimentation != TypeAlimentation.Any) {
+                        DataManager.TypeAlimentation = p.CreaturePart.typeAlimentation;
+                        iconTypeAlimentation[(int) DataManager.TypeAlimentation].SetActive(true);
+                    }
+                btnInt.colors.NormalColor = !contains ? Color.cyan : Color.white;
+            });
         }
     }
     public void ToglePauseMenu (bool e, bool update = false) {
