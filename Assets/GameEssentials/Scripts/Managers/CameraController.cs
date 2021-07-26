@@ -15,8 +15,8 @@ public class CameraController : MonoBehaviour {
     Transform target;
     Vector3 velocity = Vector3.zero;
 
-    float screenHeight = 0, screenWidth = 0,
-          radius = 0, objetiveRadius = 0;
+    float screenHeight = 0, screenWidth = 0;
+    int radius = 0, objetiveRadius = 0;
     bool canAnimateVision = false;
 
     public static CameraController Main = null;
@@ -33,13 +33,15 @@ public class CameraController : MonoBehaviour {
         Material tmpMat = new Material(Shader.Find("Shader Graphs/DarkMask"));
         tmpMat.CopyPropertiesFromMaterial(mask.material);
         mask.material = tmpMat;
+        if (DataManager.IsNewData)
+            mask.material.SetFloat("Radius", 0f);
         GetCharacterPositionToMask();
     }
 
-    public void Init(float visionRadiusDefault) {
+    public void Init(int visionRadiusDefault) {
         CameraController.Main.ChangeVision(visionRadiusDefault);
         CameraController.Main.CanAnimateVision(true);
-        radius = visionRadiusDefault;
+        objetiveRadius = visionRadiusDefault;
     }
 
     void GetCharacterPositionToMask() {
@@ -71,7 +73,7 @@ public class CameraController : MonoBehaviour {
         mask.material.SetFloat("Center_Y", characterScreenHeight);
     }
 
-    public void ChangeVision(float radiusVision) => objetiveRadius = radiusVision;
+    public void ChangeVision(int radiusVision) => objetiveRadius = radiusVision;
         //mask.material.SetFloat("Radius", radiusVision);
     // TODO: On show game after show pause/part/adn menu
     public void CanAnimateVision(bool can) => canAnimateVision = can;
@@ -85,15 +87,15 @@ public class CameraController : MonoBehaviour {
 
     void Update() {
         // Efecto de Vision
-        if (radius != 1)
+        if (radius != 100)
             GetCharacterPositionToMask();
         if (!canAnimateVision) return;
         if (radius.Equals(objetiveRadius))
             canAnimateVision = false;
         else if (radius < objetiveRadius)
-            radius += .01f;
+            radius += 1;
         else
-            radius -= .01f;
-        mask.material.SetFloat("Radius", radius);
+            radius -= 1;
+        mask.material.SetFloat("Radius", (float)(radius / 100.0f));
     }
 }
