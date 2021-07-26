@@ -7,13 +7,11 @@ using TMPro;
 
 public class AdvancedUIInteractable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
 
-    [SerializeField] bool interactive;
+    [SerializeField] bool interactive = true;
     [SerializeField] [Range(0f, 1f)] float lerpFade = .2f;
 
     public bool Interactive {
-        get {
-            return interactive;
-        }
+        get => interactive;
         set {
             interactive = value;
             Color target = interactive ? colors.NormalColor : colors.DisabledColor;
@@ -21,7 +19,15 @@ public class AdvancedUIInteractable : MonoBehaviour, IPointerEnterHandler, IPoin
             ExitAll();
         }
     }
-    public AdvancedUIColors colors = new AdvancedUIColors();
+    [SerializeField] AdvancedUIColors _colors = new AdvancedUIColors();
+    public AdvancedUIColors colors {
+        get => _colors;
+        set {
+            _colors = value;
+            Color target = interactive ? colors.NormalColor : colors.DisabledColor;
+            PaintColor(target);
+        }
+    }
     public AdvancedUIImages images;
     public AdvancedUIAudios audios;
     [SerializeField] UnityEvent onHover, onExit, onClick, onDown, onUp;
