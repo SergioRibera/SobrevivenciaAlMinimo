@@ -6,6 +6,7 @@ public class CreatureData {
     public List<Hability> habilities;
     public int level;
     public List<CreaturePart> parts;
+    public List<string> partsNames;
     public int inputSelect,
            adn, maxADN, currentNutrition, maxNutrition;
 
@@ -19,6 +20,7 @@ public class CreatureData {
         level = -1;
         habilities = new List<Hability>();
         parts = new List<CreaturePart>();
+        partsNames = new List<string>();
         inputSelect = 0;
         typeAlimentation = TypeAlimentation.Any;
     }

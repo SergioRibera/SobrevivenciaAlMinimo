@@ -33,60 +33,69 @@ public class CreatureManager : MonoBehaviour {
         parts = new List<ICreaturePart>();
         for (int i = 0; i < DataManager.Level; i++)
             unlockLevels[i]?.Invoke();
+        if (!DataManager.DataLoaded) return;
+        if (!DataManager.IsNewData) {
+            // TODO: Load all parts and others
+            if (parts.Count > 0) {
+                foreach (var p in parts)
+                    if (DataManager.ExistsCreaturePart(p.CreaturePart.name))
+                        CreaturePlayable.Main.AddCreaturePart(p, false);
+            }
+        }
     }
 
     void UnlockLevel1() {
         parts.Add(new Eye(){
-            CreaturePart = new CreaturePart(
-                new Vector3(.003f, 0.093f, -1f),
-                Vector3.one * 5f,
-                0f,
-                level1[0],
-                "Vista Gorda",
-                1, 2, TypeAlimentation.Any, value: 100
-            )
-        });
+                CreaturePart = new CreaturePart(
+                        new Vector3(.003f, 0.093f, -1f),
+                        Vector3.one * 5f,
+                        0f,
+                        level1[0],
+                        "Vista Gorda",
+                        1, 2, TypeAlimentation.Any, value: 100
+                        )
+                });
         parts.Add(new Eye(){
-            CreaturePart = new CreaturePart(
-                new Vector3(.003f, 0.093f, -1f),
-                Vector3.one * 5f,
-                0f,
-                level1[1],
-                "Punto de Vista",
-                1, 1, TypeAlimentation.Any, value: 60
-            )
-        });
+                CreaturePart = new CreaturePart(
+                        new Vector3(.003f, 0.093f, -1f),
+                        Vector3.one * 5f,
+                        0f,
+                        level1[1],
+                        "Punto de Vista",
+                        1, 1, TypeAlimentation.Any, value: 60
+                        )
+                });
         parts.Add(new Mouth(){
-            CreaturePart = new CreaturePart(
-                new Vector3(0f, .435f, -1f),
-                Vector3.one * 3f,
-                .07f,
-                level1[2],
-                "Destroza Huesos",
-                1, 3, TypeAlimentation.Carnivore, value: 20
-            )
-        });
+                CreaturePart = new CreaturePart(
+                        new Vector3(0f, .435f, -1f),
+                        Vector3.one * 3f,
+                        .07f,
+                        level1[2],
+                        "Destroza Huesos",
+                        1, 3, TypeAlimentation.Carnivore, value: 20
+                        )
+                });
         parts.Add(new Mouth(){
-            CreaturePart = new CreaturePart(
-                new Vector3(0f, .435f, -1f),
-                Vector3.one * 3f,
-                .07f,
-                level1[3],
-                "Pastadora",
-                1, 3, TypeAlimentation.Herbivore, value: 20
-            )
-        });
+                CreaturePart = new CreaturePart(
+                        new Vector3(0f, .435f, -1f),
+                        Vector3.one * 3f,
+                        .07f,
+                        level1[3],
+                        "Pastadora",
+                        1, 3, TypeAlimentation.Herbivore, value: 20
+                        )
+                });
         // Omnivoro
         parts.Add(new Mouth(){
-            CreaturePart = new CreaturePart(
-                new Vector3(0f, .435f, -1f),
-                Vector3.one * 3f,
-                .07f,
-                level1[2],
-                "Aspira Nutrientes",
-                1, 3, TypeAlimentation.Omnivore, value: 20
-            )
-        });
+                CreaturePart = new CreaturePart(
+                        new Vector3(0f, .435f, -1f),
+                        Vector3.one * 3f,
+                        .07f,
+                        level1[2],
+                        "Aspira Nutrientes",
+                        1, 3, TypeAlimentation.Omnivore, value: 20
+                        )
+                });
     }
     void UnlockLevel2() {
     }
