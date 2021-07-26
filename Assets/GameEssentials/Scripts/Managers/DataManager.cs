@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using EasyDataSave;
 
 public static class DataManager {
     static string DATA_PATH = Application.persistentDataPath;
