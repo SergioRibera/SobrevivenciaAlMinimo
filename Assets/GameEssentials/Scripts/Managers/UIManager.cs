@@ -27,9 +27,35 @@ public class UIManager : MonoBehaviour {
     [SerializeField] List<GameObject> iconTypeAlimentation;
 
     public static UIManager Main = null;
+
+    InputActions input;
     void Awake(){
         if (Main == null)
             Main = this;
+    }
+    void OnEnable () {
+        if (input == null)
+            input = new InputActions();
+        input.Interface.Acept.performed += ctx => {
+            if (showedNotification) {
+                animNot.SetTrigger("Exit");
+                /* if (queueNot.Count > 0) { */
+                /*     NotificationData d = queueNot.Peek(); */
+                /*     animNot.SetTrigger("Entry"); */
+                /*     if (!string.IsNullOrEmpty(d.title)) */
+                /*         notTitle.text = LanguajeManager.Main.TranslateContent(d.title); */
+                /*     notMsg.text = LanguajeManager.Main.TranslateContent(d.msg); */
+                /*     showedNotification = true; */
+                /*     return; */
+                /* } */
+                showedNotification = false;
+            }
+        };
+        input.Enable();
+    }
+    void OnDisable() {
+        if (input != null)
+            input.Disable();
     }
 
     public void UpdateNutritionPoint (float point) => nutritionPoint.fillAmount = point;
@@ -84,6 +110,10 @@ public class UIManager : MonoBehaviour {
     }
     public void ToglePauseMenu (bool e, bool update = false) {
         pauseMenu.SetActive(e);
+        if (showedNotification) {
+            animNot.SetTrigger("Exit");
+            showedNotification = false;
+        }
         /* VerticalLayoutGroup vl = pauseMenu.GetComponent<VerticalLayoutGroup>(); */
         /* vl.enabled = false; */
         /* Vector2 pos = Vector2.right * 300 * (e ? 1 : -1); */
@@ -101,14 +131,21 @@ public class UIManager : MonoBehaviour {
         animPlayerHealth.SetTrigger("Entry");
     }
     public void ToggleTextAnyKey() => textAnyKey.SetActive(!textAnyKey.activeSelf);
-    public void ShowNotification(string msg, float wait, string title = "") => StartCoroutine(ShowNotification(msg, title, wait));
 
-    IEnumerator ShowNotification(string msg, string title, float wait) {
-        animNot.SetTrigger("Entry");
-        if (!string.IsNullOrEmpty(title))
-            notTitle.text = title;
-        notMsg.text = msg;
-        yield return new WaitForSeconds(wait);
-        animNot.SetTrigger("Exit");
-    }    
+    bool showedNotification = false;
+    /* Queue<NotificationData> queueNot = new Queue<NotificationData>(); */
+    public void ShowNotification(string msg, float wait, string title = "") {
+        /* if (showedNotification) */
+        /*     // Add to queue */
+        /*     queueNot.Enqueue(new NotificationData(){ */
+        /*         title = title, */
+        /*         msg = msg */
+        /*     }); */
+        /* else { */
+            animNot.SetTrigger("Entry");
+            if (!string.IsNullOrEmpty(title))
+                notTitle.text = LanguajeManager.Main.TranslateContent(title);
+            notMsg.text = LanguajeManager.Main.TranslateContent(msg);
+            showedNotification = true;
+    }
 }

@@ -180,6 +180,44 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Interface",
+            "id": "6e7748cc-b8b9-46e0-bb5d-717b9a09e7f0",
+            "actions": [
+                {
+                    "name": "Acept",
+                    "type": "Button",
+                    "id": "0cd40f4e-9ac4-4fab-b630-99783c9bb4fb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "063d463a-0cd4-4edd-ab23-de1a60d5c3a7",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Acept",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eaa0bfe9-b537-4b28-bdb2-45324356dda0",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Acept",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
