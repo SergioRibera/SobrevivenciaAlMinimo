@@ -41,13 +41,14 @@ public class NormalDetection : IInput {
 
     public void Update() {
         if (!input.asset.enabled) return;
-        if (Mouse.current.leftButton.isPressed && !GameManager.Main.pausedGame)
+        if (Mouse.current.leftButton.isPressed && !GameManager.Main.pausedGame) {
             mousePos = _mousePosTemp;
-        var dir = new Vector2(
-            mousePos.x - creature.position.x,
-            mousePos.y - creature.position.y
-        );
-        creature.transform.up = dir;
+            var dir = new Vector2(
+                mousePos.x - creature.position.x,
+                mousePos.y - creature.position.y
+            );
+            creature.transform.up = dir;
+        }
         creature.MovePosition(Vector3.MoveTowards(creature.position, mousePos,
                 creatureSpeed * Time.deltaTime));
         /* creature.MovePosition(Vector3.Lerp(creature.position, mousePos, */

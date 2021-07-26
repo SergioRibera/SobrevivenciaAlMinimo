@@ -8,9 +8,9 @@ public interface ICreaturePart {
     CreaturePart CreaturePart { set; get; }
     void Init();
     TypePart GetTypePart { get; }
-    void Action(CreatureBase me);
-    void Action(CreatureBase me, CreatureBase other);
-    void Action(CreatureBase me, GameObject go);
+    void ActionEnter(string tag, CreatureBase me, GameObject other);
+    void ActionStay(string tag, CreatureBase me, GameObject other);
+    void ActionExit(string tag, CreatureBase me, GameObject other);
 }
 
 public interface IDamageable {

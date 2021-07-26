@@ -20,5 +20,6 @@ public class CreatureData {
         habilities = new List<Hability>();
         parts = new List<CreaturePart>();
         inputSelect = 0;
+        typeAlimentation = TypeAlimentation.Any;
     }
 }

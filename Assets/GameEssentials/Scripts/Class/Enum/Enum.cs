@@ -1,7 +1,8 @@
 public enum TypeAlimentation {
-    Carnivore,
-    Herbivore,
-    Omnivore
+    Carnivore = 0,
+    Herbivore = 1,
+    Omnivore = 2,
+    Any = 3
 }
 
 public enum TypePart {
