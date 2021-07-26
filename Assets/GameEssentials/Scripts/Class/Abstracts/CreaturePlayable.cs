@@ -29,6 +29,10 @@ public class CreaturePlayable : CreatureBase {
     void Start() {
         if (DataManager.DataLoaded) {
             maxHealthDefault = DataManager.Health;
+            if (DataManager.IsNewData) {
+                // TODO: Load defaults
+                parts = new List<ICreaturePart>();
+            }
         }
         health = maxHealthDefault;
         inputs = new IInput[] {
@@ -44,8 +48,6 @@ public class CreaturePlayable : CreatureBase {
             () => DataManager.MaxADN = 12,
             () => DataManager.MaxADN = 15
         };
-        // TODO: Load Parts
-        parts = new List<ICreaturePart>();
         CalculateNextMaxNut();
     }
 
@@ -53,13 +55,15 @@ public class CreaturePlayable : CreatureBase {
     public int ContainsPart(TypePart typePart) => parts.FindAll(p => p.GetTypePart == typePart).Count;
 
     GameObject goPart;
-    public bool AddCreaturePart(ICreaturePart part) {
+    public bool AddCreaturePart(ICreaturePart part, bool save = true) {
         // TODO: Verification
         if ((DataManager.ADN + part.CreaturePart.adnValue) > DataManager.MaxADN) {
-            UIManager.Main.ShowNotification("No tienes puntos de ADN disponibles", 3f, $"Imposible Agregar la pieza ({part.CreaturePart.name})");
+            UIManager.Main.ShowNotification("No tienes puntos de ADN disponibles", 3f, $"Imposible Agregar la pieza");
             return false;
         }
         parts.Add(part);
+        if (save)
+            DataManager.AddCreaturePart(part.CreaturePart.name);
         DataManager.ADN += part.CreaturePart.adnValue;
         goPart = new GameObject(part.GetTypePart.ToString() + part.CreaturePart.name);
         goPart.transform.rotation = transform.rotation;

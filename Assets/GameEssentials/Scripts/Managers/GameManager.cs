@@ -53,4 +53,6 @@ public class GameManager : MonoBehaviour {
         UIManager.Main.ToglePauseMenu(pausedGame);
     }
 
+    public void QuitGame() => Application.Quit();
+
 }

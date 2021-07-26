@@ -1,4 +1,4 @@
-# First Pre alpha version
-- Basic controls
-- First Demo alpha
-- Try implement creature part system
+# Features
+- Multilanguaje system
+- Try fix colorised
+- fix time notification

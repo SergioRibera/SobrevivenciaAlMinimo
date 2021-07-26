@@ -193,6 +193,44 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Interface"",
+            ""id"": ""6e7748cc-b8b9-46e0-bb5d-717b9a09e7f0"",
+            ""actions"": [
+                {
+                    ""name"": ""Acept"",
+                    ""type"": ""Button"",
+                    ""id"": ""0cd40f4e-9ac4-4fab-b630-99783c9bb4fb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""063d463a-0cd4-4edd-ab23-de1a60d5c3a7"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Acept"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eaa0bfe9-b537-4b28-bdb2-45324356dda0"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Acept"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -222,6 +260,9 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_PlayerNormal = asset.FindActionMap("PlayerNormal", throwIfNotFound: true);
         m_PlayerNormal_MousePosition = m_PlayerNormal.FindAction("MousePosition", throwIfNotFound: true);
         m_PlayerNormal_Pause = m_PlayerNormal.FindAction("Pause", throwIfNotFound: true);
+        // Interface
+        m_Interface = asset.FindActionMap("Interface", throwIfNotFound: true);
+        m_Interface_Acept = m_Interface.FindAction("Acept", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -349,6 +390,39 @@ public class @InputActions : IInputActionCollection, IDisposable
         }
     }
     public PlayerNormalActions @PlayerNormal => new PlayerNormalActions(this);
+
+    // Interface
+    private readonly InputActionMap m_Interface;
+    private IInterfaceActions m_InterfaceActionsCallbackInterface;
+    private readonly InputAction m_Interface_Acept;
+    public struct InterfaceActions
+    {
+        private @InputActions m_Wrapper;
+        public InterfaceActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Acept => m_Wrapper.m_Interface_Acept;
+        public InputActionMap Get() { return m_Wrapper.m_Interface; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(InterfaceActions set) { return set.Get(); }
+        public void SetCallbacks(IInterfaceActions instance)
+        {
+            if (m_Wrapper.m_InterfaceActionsCallbackInterface != null)
+            {
+                @Acept.started -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnAcept;
+                @Acept.performed -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnAcept;
+                @Acept.canceled -= m_Wrapper.m_InterfaceActionsCallbackInterface.OnAcept;
+            }
+            m_Wrapper.m_InterfaceActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Acept.started += instance.OnAcept;
+                @Acept.performed += instance.OnAcept;
+                @Acept.canceled += instance.OnAcept;
+            }
+        }
+    }
+    public InterfaceActions @Interface => new InterfaceActions(this);
     private int m_ControlsSchemeIndex = -1;
     public InputControlScheme ControlsScheme
     {
@@ -367,5 +441,9 @@ public class @InputActions : IInputActionCollection, IDisposable
     {
         void OnMousePosition(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+    }
+    public interface IInterfaceActions
+    {
+        void OnAcept(InputAction.CallbackContext context);
     }
 }

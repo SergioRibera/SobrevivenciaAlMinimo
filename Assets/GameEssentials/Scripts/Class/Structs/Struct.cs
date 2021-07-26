@@ -11,3 +11,8 @@ public struct Hability {
     public List<int> prevHabilitiesRequire;
     public List<TypeHability> types;
 }
+
+public struct NotificationData {
+    public string title;
+    public string msg;
+}
