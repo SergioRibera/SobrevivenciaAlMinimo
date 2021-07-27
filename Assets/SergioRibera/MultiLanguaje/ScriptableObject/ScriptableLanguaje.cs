@@ -28,7 +28,7 @@ public class ScriptableLanguaje : ScriptableObject
     public string GetContent(string idioma, int idContent) => GetLanguajeContent(idioma, idContent).content;
     public int LanguajesCount => idiomas.Count;
     public int LanguajeContentCount(string name) => GetLanguaje(name).content.Count;
-    public LanguajeContent TraduceByContent (string content, string languajeDest) {
+    public string TraduceByContent (string content, string languajeDest) {
         int id = -1;
         foreach (var i in idiomas) {
             LanguajeContent lc = i.content.Find(c => c.content == content);
@@ -36,7 +36,8 @@ public class ScriptableLanguaje : ScriptableObject
                 id = lc.id;
         }
         if (id != -1)
-            return GetLanguajeContent(languajeDest, id);
-        throw new Exception("The content is not registered on this ScriptableObject");
+            return GetLanguajeContent(languajeDest, id).content;
+        return content;
+        /* throw new Exception("The content is not registered on this ScriptableObject"); */
     }
 }

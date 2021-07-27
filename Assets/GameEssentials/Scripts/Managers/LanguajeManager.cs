@@ -28,7 +28,7 @@ public class LanguajeManager : MonoBehaviour {
             if(langs[i] == languajeSelected)
                 languajeSelect.value = i;
         foreach(var t in texts)
-            t.textUI.text = dbLanguaje.TraduceByContent(t.textUI.text, languajeSelected).content;
+            t.textUI.text = dbLanguaje.TraduceByContent(t.textUI.text, languajeSelected);
         UpdateTextsLanguajes();
     }
     public void UpdateTextsLanguajes(){
@@ -36,5 +36,5 @@ public class LanguajeManager : MonoBehaviour {
             t.textUI.text = dbLanguaje.GetLanguajeContent(languajeSelected, t.indexContent).content;
     }
 
-    public string TranslateContent (string content) => dbLanguaje.TraduceByContent(content, languajeSelected).content;
+    public string TranslateContent (string content) => dbLanguaje.TraduceByContent(content, languajeSelected);
 }
