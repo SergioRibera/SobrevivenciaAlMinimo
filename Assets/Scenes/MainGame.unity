@@ -1668,7 +1668,7 @@ MonoBehaviour:
   - textUI: {fileID: 1595742043}
     indexContent: 5
   - textUI: {fileID: 337930749}
-    indexContent: 6
+    indexContent: 12
 --- !u!1 &487536687
 GameObject:
   m_ObjectHideFlags: 0

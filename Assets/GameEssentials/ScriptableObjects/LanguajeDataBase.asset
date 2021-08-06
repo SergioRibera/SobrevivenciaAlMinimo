@@ -39,8 +39,10 @@ MonoBehaviour:
         informacion
     - id: 11
       content: Una nueva etapa!!!!
+    - id: 12
+      content: Presiona Espacio o Enter para continuar
   - Name: en
-    editorShow: 1
+    editorShow: 0
     content:
     - id: 1
       content: Press any key to start...
@@ -64,3 +66,5 @@ MonoBehaviour:
       content: You have unlocked new parts! Click on the bubble to see more info
     - id: 11
       content: A new stage!!!!
+    - id: 12
+      content: Press Enter or Scape to continue

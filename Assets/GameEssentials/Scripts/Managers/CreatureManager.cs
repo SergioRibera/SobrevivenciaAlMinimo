@@ -38,10 +38,13 @@ public class CreatureManager : MonoBehaviour {
         if (!DataManager.DataLoaded) return;
         if (!DataManager.IsNewData) {
             // TODO: Load all parts and others
-            if (parts.Count > 0) {
-                foreach (var p in parts)
+            if (parts.Count > 0 && DataManager.CountParts > 0) {
+                foreach (var p in parts) {
+                    print(p);
                     if (DataManager.ExistsCreaturePart(p.CreaturePart.name))
                         CreaturePlayable.Main.AddCreaturePart(p, false);
+                }
+                UIManager.Main.UpdateUIParts();
             }
         }
     }

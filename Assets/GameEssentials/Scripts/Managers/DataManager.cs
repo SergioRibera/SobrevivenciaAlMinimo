@@ -83,6 +83,7 @@ public static class DataManager {
         }
     }
 
+    public static int CountParts => data.partsNames.Count;
     public static CreaturePart GetCreaturePart(int key) => data.parts[key];
     
     public static void AddCreaturePart(CreaturePart c) {

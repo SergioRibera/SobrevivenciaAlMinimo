@@ -112,9 +112,10 @@ public class CreaturePlayable : CreatureBase {
     }
     int anim0ID;
     IEnumerator Level0() {
-        int timeDuration = 30,
+        // int timeDuration = 30,
+        int timeDuration = 10,
               time = 0;
-        if (!DataManager.DataLoaded && !DataManager.IsNewData)
+        // if (DataManager.DataLoaded || !DataManager.IsNewData)
             UIManager.Main.ShowNotification("Sobrevive esta primera etapa! Haz click para moverte", 4f, title: "Bienvenido al mundo!!!!");
         while (time < timeDuration) {
             yield return new WaitForSeconds(1);
@@ -144,8 +145,8 @@ public class CreaturePlayable : CreatureBase {
             if (DataManager.Level > 0) {
                 CreatureManager.Main.UnlockPlayerLevel();
                 UIManager.Main.UpdateADNPoint();
-                if (!DataManager.DataLoaded && !DataManager.IsNewData)
-                    UIManager.Main.ShowNotification("Haz desbloquado nuevas partes! Haz click en la burbuja para ver mas informacion", 5f, title: "Una nueva etapa!!!!");
+                // TODO: Make not repeat
+                UIManager.Main.ShowNotification("Haz desbloquado nuevas partes! Haz click en la burbuja para ver mas informacion", 5f, title: "Una nueva etapa!!!!");
             }
         }
     }
