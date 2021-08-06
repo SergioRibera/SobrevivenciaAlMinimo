@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class CreatureManager : MonoBehaviour {
@@ -28,11 +29,12 @@ public class CreatureManager : MonoBehaviour {
         };
     }
 
-    public void Init() {
-        /* TODO: call functions by level */
+    void Start() {
         parts = new List<ICreaturePart>();
+        print(DataManager.Level);
         for (int i = 0; i < DataManager.Level; i++)
-            unlockLevels[i]?.Invoke();
+            if (i < unlockLevels.Length)
+                unlockLevels[i]?.Invoke();
         if (!DataManager.DataLoaded) return;
         if (!DataManager.IsNewData) {
             // TODO: Load all parts and others
@@ -43,6 +45,8 @@ public class CreatureManager : MonoBehaviour {
             }
         }
     }
+
+    public void Init() {}
 
     void UnlockLevel1() {
         parts.Add(new Eye(){

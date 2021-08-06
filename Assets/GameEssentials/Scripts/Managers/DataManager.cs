@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using EasyDataSave;
+using System.Diagnostics;
 
 public static class DataManager {
     static string DATA_PATH = Application.persistentDataPath;
@@ -12,15 +13,10 @@ public static class DataManager {
     public static bool DataLoaded { private set; get; }
     public static bool IsNewData { private set; get; }
     public static void Init() {
-#if !UNITY_EDITOR
         IsNewData = !SaveDataManager.Exist(typeof(CreatureData), DATA_PATH);
         data = !IsNewData ?
             SaveDataManager.Load<CreatureData>(DATA_PATH, KEY_ENCRYPT, loadPrivates: true) : new CreatureData();
         DataLoaded = data != null;
-#else
-        IsNewData = DataLoaded = true;
-        data = new CreatureData();
-#endif
     }
 
     public static int Health {
@@ -102,8 +98,6 @@ public static class DataManager {
     }
 
     static void Save() {
-#if !UNITY_EDITOR
         data.Save<CreatureData>(DATA_PATH, KEY_ENCRYPT, savePrivates: true);
-#endif
     }
 }

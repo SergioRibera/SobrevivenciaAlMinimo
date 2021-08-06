@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEditor;
 
@@ -34,6 +35,26 @@ public class LanguajeBaseEditor : Editor {
                 searchString = GUILayout.TextField(searchString);
                 EditorGUILayout.EndHorizontal();
             }
+            EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button("Exportar")) {
+                    string path = EditorUtility.SaveFilePanel(
+                        "Guardar Respaldo",
+                        "",
+                        "Languaje_bck.json",
+                        "json");
+                    if (path.Length != 0)
+                        File.WriteAllText(path, database.Serialize());
+                    else
+                        EditorUtility.DisplayDialog("Hubo un error", $"Ha ocurrido un error al guardar los datos", "Aceptar");
+                }
+                if (GUILayout.Button("Importar")) {
+                    string path = EditorUtility.OpenFilePanel("Selecciona el archivo", "", "json");
+                    if (path.Length != 0)
+                        database.DeSerialize(File.ReadAllText(path));
+                    else
+                        EditorUtility.DisplayDialog("Hubo un error", $"Ha ocurrido un error al cargar los datos", "Aceptar");
+                }
+            EditorGUILayout.EndHorizontal();
             if (GUILayout.Button("Add new Idioma"))
                 AddLanguajeWindows.ShowWindow(database);
             if (GUILayout.Button("Add new Content"))

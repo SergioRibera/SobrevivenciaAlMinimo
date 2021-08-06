@@ -27,11 +27,11 @@ public class CreaturePlayable : CreatureBase {
     }
 
     void Start() {
+        parts = new List<ICreaturePart>();
         if (DataManager.DataLoaded) {
             maxHealthDefault = DataManager.Health;
             if (DataManager.IsNewData) {
                 // TODO: Load defaults
-                parts = new List<ICreaturePart>();
             }
         }
         health = maxHealthDefault;
@@ -114,7 +114,8 @@ public class CreaturePlayable : CreatureBase {
     IEnumerator Level0() {
         int timeDuration = 30,
               time = 0;
-        UIManager.Main.ShowNotification("Sobrevive esta primera etapa! Haz click para moverte", 4f, title: "Bienvenido al mundo!!!!");
+        if (!DataManager.DataLoaded && !DataManager.IsNewData)
+            UIManager.Main.ShowNotification("Sobrevive esta primera etapa! Haz click para moverte", 4f, title: "Bienvenido al mundo!!!!");
         while (time < timeDuration) {
             yield return new WaitForSeconds(1);
             float nextStep = 1.0f / timeDuration * time;
@@ -135,14 +136,17 @@ public class CreaturePlayable : CreatureBase {
     void CalculateNextMaxNut() => DataManager.MaxNutrition = DataManager.Level * 10 + (Random.Range(2, 30));
     public void NextLevel() {
         // TODO: Add effect
-        DataManager.Level++;
-        CalculateNextMaxNut();
-        levelsActions[DataManager.Level]();
-        UIManager.Main.UpdateLevel();
-        if (DataManager.Level > 0) {
-            CreatureManager.Main.UnlockPlayerLevel();
-            UIManager.Main.UpdateADNPoint();
-            UIManager.Main.ShowNotification("Haz desbloquado nuevas partes! Haz click en la burbuja para ver mas informacion", 5f, title: "Una nueva etapa!!!!");
+        if (DataManager.Level + 1 < 5) {
+            DataManager.Level++;
+            CalculateNextMaxNut();
+            levelsActions[DataManager.Level]();
+            UIManager.Main.UpdateLevel();
+            if (DataManager.Level > 0) {
+                CreatureManager.Main.UnlockPlayerLevel();
+                UIManager.Main.UpdateADNPoint();
+                if (!DataManager.DataLoaded && !DataManager.IsNewData)
+                    UIManager.Main.ShowNotification("Haz desbloquado nuevas partes! Haz click en la burbuja para ver mas informacion", 5f, title: "Una nueva etapa!!!!");
+            }
         }
     }
     void FixedUpdate() {

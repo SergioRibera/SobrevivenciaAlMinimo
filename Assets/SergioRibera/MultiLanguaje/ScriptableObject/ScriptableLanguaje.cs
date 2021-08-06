@@ -1,11 +1,11 @@
-﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName ="LanguajeDataBase", menuName ="Lenguaje DataBase")]
 public class ScriptableLanguaje : ScriptableObject
 {
-    List<Languaje> idiomas = new List<Languaje>();
+    [SerializeField] List<Languaje> idiomas = new List<Languaje>();
     // Esta funcion permite
     public void AddLanguaje(Languaje idioma) {
         if (GetLanguaje(idioma.Name) == null)
@@ -40,4 +40,7 @@ public class ScriptableLanguaje : ScriptableObject
         return content;
         /* throw new Exception("The content is not registered on this ScriptableObject"); */
     }
+
+    public string Serialize() => JsonUtility.ToJson(this);
+    public void DeSerialize(string s) => JsonUtility.FromJsonOverwrite(s, this);
 }
